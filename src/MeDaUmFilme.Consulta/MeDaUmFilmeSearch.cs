@@ -5,7 +5,7 @@ namespace MeDaUmFilme
 {
     public static class MeDaUmFilmeSearch
     {
-        public static async Task<string> GetMovie(MeDaUmFilmeRequest request)
+        public static async Task<string> GetMovie(OmbdRequest request)
         {
             string json = null;
 

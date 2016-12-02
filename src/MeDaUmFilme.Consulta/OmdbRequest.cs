@@ -1,7 +1,7 @@
 namespace MeDaUmFilme
 {
 
-    public class MeDaUmFilmeRequest
+    public class OmbdRequest
     {
         private readonly string REQUEST_API = "http://www.omdbapi.com/?";
 

@@ -12,7 +12,7 @@ namespace MeDaUmFilme.UnitTests
         [Fact]
         public async Task MeDaUmFilmeRequest_With_No_Title()
         {
-            var emptyRequest = new MeDaUmFilmeRequest();
+            var emptyRequest = new OmbdRequest();
 
             var result = await MeDaUmFilmeSearch.GetMovie(emptyRequest);
 
