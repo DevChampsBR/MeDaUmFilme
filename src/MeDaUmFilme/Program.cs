@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MeDaUmFilme.Language;
 using Tweetinvi.Models;
 using Tweetinvi.Parameters;
+using MeDaUmFilme.Twitter;
 
 namespace MeDaUmFilme
 {
@@ -12,6 +13,7 @@ namespace MeDaUmFilme
     {
         private static IAnalyzer languageAnalyzer;
         private static IMeDaUmFilmeSearch meDaUmFilmeSearch;
+        private static Twitter.Twitter twitter;
 
         public static void Main(string[] args)
         {
@@ -30,7 +32,7 @@ namespace MeDaUmFilme
             var services = serviceCollection.BuildServiceProvider();
             languageAnalyzer = services.GetService<IAnalyzer>();
             meDaUmFilmeSearch = services.GetService<IMeDaUmFilmeSearch>();
-            var twitter = services.GetService<Twitter.Twitter>();
+            twitter = services.GetService<Twitter.Twitter>();
             twitter.ListenAsync("@medaumfilme", Listen);
             Console.WriteLine("Waiting...");
             Console.ReadLine();
@@ -42,16 +44,55 @@ namespace MeDaUmFilme
             {
                 Console.WriteLine($"Searched: {sanitizedText}");
                 var intent = await languageAnalyzer.AnalyzeAsync(sanitizedText);
-                if (intent.Name == "BuscaTitulo")
+                switch (intent.Name)
                 {
-                    var omdbRequest = new OmbdRequest()
-                    {
-                        Title = intent.Entities["Titulo"]
-                    };
-                    var movie = await meDaUmFilmeSearch.GetMovie(omdbRequest);
-                    var replyText = $"Found: {movie.Title} from {movie.Year}";
-                    Console.WriteLine(replyText);
-                    ReplyToTweet(tweet, replyText);
+                    case "BuscaTitulo":
+                        {
+                            var replyText = "Não entendi.";
+                            if (!intent.Entities.ContainsKey("Titulo"))
+                            {
+                                Console.WriteLine(replyText);
+                                twitter.ReplyToTweet(tweet, replyText);
+                                break;
+                            }
+                            var omdbRequest = new OmbdRequest()
+                            {
+                                Title = intent.Entities["Titulo"]
+                            };
+                            var movie = await meDaUmFilmeSearch.GetMovie(omdbRequest);
+                            replyText = $"Found: {movie.Title} from {movie.Year}";
+                            Console.WriteLine(replyText);
+                            twitter.ReplyToTweet(tweet, replyText);
+                            break;
+                        }
+                    case "BuscaQualquer":
+                        {
+                            var replyText = "Não entendi.";
+                            if (!intent.Entities.ContainsKey("Titulo"))
+                            {
+                                Console.WriteLine(replyText);
+                                twitter.ReplyToTweet(tweet, replyText);
+                                break;
+                            }
+                            var omdbRequest = new OmbdRequest()
+                            {
+                                Title = intent.Entities["Titulo"]
+                            };
+                            var movie = await meDaUmFilmeSearch.GetMovie(omdbRequest);
+                            replyText = $"Found: {movie.Title} from {movie.Year}";
+                            Console.WriteLine(replyText);
+                            twitter.ReplyToTweet(tweet, replyText);
+                            break;
+                        }
+                    case "None":
+                        {
+                            var replyText = "Não entendi.";
+                            Console.WriteLine(replyText);
+                            twitter.ReplyToTweet(tweet, replyText);
+                            break;
+                        }
+                    default:
+                        break;
                 }
             }
             catch (Exception ex)
@@ -60,14 +101,5 @@ namespace MeDaUmFilme
             }
         }
 
-        private static void ReplyToTweet(ITweet tweet, string text)
-        {
-            var response = Tweetinvi.Tweet.PublishTweet($"@{tweet.CreatedBy.ScreenName} {text}",
-                new PublishTweetOptionalParameters()
-                {
-                    InReplyToTweet = tweet
-                }
-            );
-        }
     }
 }
