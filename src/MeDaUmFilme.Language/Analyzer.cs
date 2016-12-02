@@ -17,7 +17,7 @@ namespace MeDaUmFilme.Language
         private string baseUri;
         public Analyzer(Guid appId, string subscriptionKey)
         {
-            baseUri = string.Format(baseUri, appId.ToString(), subscriptionKey);
+            baseUri = string.Format(baseUriTemplate, appId.ToString(), subscriptionKey);
         }
 
         public async Task<Intent> AnalyzeAsync(string text)
@@ -27,7 +27,7 @@ namespace MeDaUmFilme.Language
             {
                 if (!result.IsSuccessStatusCode)
                     throw new Exception($"Error analyzing language. Status: {result.StatusCode}.");
-                var content = await result.RequestMessage.Content.ReadAsStringAsync();
+                var content = await result.Content.ReadAsStringAsync();
                 var luisResult = await Task.Factory.StartNew(() => Newtonsoft.Json.JsonConvert.DeserializeObject<LuisResult>(content));
                 return new Intent
                 {
