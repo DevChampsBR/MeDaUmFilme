@@ -30,6 +30,7 @@ namespace MeDaUmFilme.Api
             // Add framework services.
             services.AddMvc();
             services.AddLanguage(Configuration.GetSection("Language"));
+            services.AddTwitter(Configuration.GetSection("Twitter"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +40,8 @@ namespace MeDaUmFilme.Api
             loggerFactory.AddDebug();
 
             app.UseMvc();
+            var twitter = app.ApplicationServices.GetService<Twitter.Twitter>();
+            twitter.Listen("@medaumfilme", t => Console.WriteLine($"*** {t}"));
         }
     }
 }

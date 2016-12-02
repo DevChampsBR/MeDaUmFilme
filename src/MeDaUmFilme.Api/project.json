@@ -16,6 +16,7 @@
         "Microsoft.Extensions.Logging.Debug": "1.0.0",
         "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
         "MeDaUmFilme.Consulta": { "target": "project" },
+        "MeDaUmFilme.Twitter": { "target": "project" },
         "MeDaUmFilme.Language": { "target": "project" }
     },
     "tools": {
