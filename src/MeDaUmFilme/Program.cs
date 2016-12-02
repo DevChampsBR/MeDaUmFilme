@@ -3,6 +3,7 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MeDaUmFilme.Language;
+using Tweetinvi.Models;
 
 namespace MeDaUmFilme
 {
@@ -34,10 +35,10 @@ namespace MeDaUmFilme
             Console.ReadLine();
         }
 
-        private async static void Listen(string tweet)
+        private async static void Listen(string sanitizedText, ITweet tweet)
         {
-            Console.WriteLine($"Searched: {tweet}");
-            var intent = await languageAnalyzer.AnalyzeAsync(tweet);
+            Console.WriteLine($"Searched: {sanitizedText}");
+            var intent = await languageAnalyzer.AnalyzeAsync(sanitizedText);
             if (intent.Name == "BuscaTitulo")
             {
                 var omdbRequest = new OmbdRequest()
