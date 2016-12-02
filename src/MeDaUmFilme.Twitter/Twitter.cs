@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Tweetinvi;
 using Tweetinvi.Models;
+using Tweetinvi.Parameters;
 
 namespace MeDaUmFilme.Twitter
 {
@@ -57,6 +58,16 @@ namespace MeDaUmFilme.Twitter
                 }
             }
             return fullText;
+        }
+
+        public void ReplyToTweet(ITweet tweet, string text)
+        {
+            var response = Tweetinvi.Tweet.PublishTweet($"@{tweet.CreatedBy.ScreenName} {text}",
+                new PublishTweetOptionalParameters
+                {
+                    InReplyToTweet = tweet
+                }
+            );
         }
     }
 }

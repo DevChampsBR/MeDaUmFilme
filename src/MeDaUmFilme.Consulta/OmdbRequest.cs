@@ -8,9 +8,9 @@ namespace MeDaUmFilme
         public string Title { get; set; }
         public string Year { get; set; }
 
-        public string SearchUri 
+        public string SearchUri
         {
-            get 
+            get
             {
                 var random = new MeDaUmFilmeRandom();
 
