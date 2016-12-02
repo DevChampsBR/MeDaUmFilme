@@ -14,9 +14,9 @@ namespace MeDaUmFilme.UnitTests
         {
             var emptyRequest = new OmbdRequest();
 
-            var result = await MeDaUmFilmeSearch.GetMovie(emptyRequest);
+            Movie result = await new MeDaUmFilmeSearch().GetMovie(emptyRequest);
 
-            Assert.True(result.Contains("Title"));
+            Assert.True(!string.IsNullOrWhiteSpace(result.Title));
         }
     }
 }

@@ -1,24 +1,36 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace MeDaUmFilme
 {
-    public static class MeDaUmFilmeSearch
+    public interface IMeDaUmFilmeSearch : IDisposable
     {
-        public static async Task<string> GetMovie(OmbdRequest request)
+        Task<Movie> GetMovie(OmbdRequest request);
+    }
+
+    public class MeDaUmFilmeSearch : IMeDaUmFilmeSearch
+    {
+        HttpClient client = new HttpClient();
+
+        public async Task<Movie> GetMovie(OmbdRequest request)
         {
-            string json = null;
+            var movie = new Movie();
 
-            using (var client = new HttpClient())
+            var response = await client.GetAsync(request.SearchUri);
+
+            if (response.IsSuccessStatusCode)
             {
-                var response = await client.GetAsync(request.SearchUri);
+                var result = await response.Content.ReadAsStringAsync();
+                var omdbResult = Newtonsoft.Json.JsonConvert.DeserializeObject<OmdbResult>(result);
 
-                if (response.IsSuccessStatusCode)
-                    json = await response.Content.ReadAsStringAsync();
-
-                return json;
+                return omdbResult.Search.FirstOrDefault();
             }
 
+            return movie;
         }
+
+        public void Dispose() => client.Dispose();
     }
 }

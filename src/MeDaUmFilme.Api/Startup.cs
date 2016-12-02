@@ -31,6 +31,7 @@ namespace MeDaUmFilme.Api
             services.AddMvc();
             services.AddLanguage(Configuration.GetSection("Language"));
             services.AddTwitter(Configuration.GetSection("Twitter"));
+            services.AddMeDaUmFilme();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
