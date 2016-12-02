@@ -1,4 +1,6 @@
-﻿namespace MeDaUmFilme.Twitter
+﻿using System;
+
+namespace MeDaUmFilme.Twitter
 {
     public class TwitterConfig
     {
@@ -8,6 +10,7 @@
             ConsumerSecret = consumerSecret;
             AccessToken = accessToken;
             AccessTokenSecret = accessTokenSecret;
+            Console.WriteLine($"Consumer key: {consumerKey}, cons sec: {consumerSecret}, access token: {accessToken}, acc t secret: {accessTokenSecret}");
         }
         public string ConsumerKey { get; set; }
         public string ConsumerSecret { get; set; }

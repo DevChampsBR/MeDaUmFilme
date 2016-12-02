@@ -38,18 +38,25 @@ namespace MeDaUmFilme
 
         private async static void Listen(string sanitizedText, ITweet tweet)
         {
-            Console.WriteLine($"Searched: {sanitizedText}");
-            var intent = await languageAnalyzer.AnalyzeAsync(sanitizedText);
-            if (intent.Name == "BuscaTitulo")
+            try
             {
-                var omdbRequest = new OmbdRequest()
+                Console.WriteLine($"Searched: {sanitizedText}");
+                var intent = await languageAnalyzer.AnalyzeAsync(sanitizedText);
+                if (intent.Name == "BuscaTitulo")
                 {
-                    Title = intent.Entities["Titulo"]
-                };
-                var movie = await meDaUmFilmeSearch.GetMovie(omdbRequest);
-                var replyText = $"Found: {movie.Title} from {movie.Year}";
-                Console.WriteLine(replyText);
-                ReplyToTweet(tweet, replyText);
+                    var omdbRequest = new OmbdRequest()
+                    {
+                        Title = intent.Entities["Titulo"]
+                    };
+                    var movie = await meDaUmFilmeSearch.GetMovie(omdbRequest);
+                    var replyText = $"Found: {movie.Title} from {movie.Year}";
+                    Console.WriteLine(replyText);
+                    ReplyToTweet(tweet, replyText);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Unmanaged error:\n" + ex.ToString());
             }
         }
 

@@ -17,6 +17,7 @@ namespace MeDaUmFilme.Language
         private string baseUri;
         public Analyzer(Guid appId, string subscriptionKey)
         {
+            Console.WriteLine($"AppId: {appId.ToString()}, sub key: {subscriptionKey}");
             baseUri = string.Format(baseUriTemplate, appId.ToString(), subscriptionKey);
         }
 

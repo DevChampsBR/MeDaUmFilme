@@ -1,45 +1,53 @@
-﻿{
-    "dependencies": {
-        "Microsoft.NETCore.App": {
-            "version": "1.0.1",
-            "type": "platform"
-        },
-        "Microsoft.Extensions.DependencyInjection": "1.1.0",
-        "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0",
-        "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0",
-        "Microsoft.Extensions.Configuration.Json": "1.0.0",
-        "Microsoft.Extensions.Logging": "1.0.0",
-        "Microsoft.Extensions.Logging.Console": "1.0.0",
-        "Microsoft.Extensions.Logging.Debug": "1.0.0",
-        "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
-        "MeDaUmFilme.Consulta": { "target": "project" },
-        "MeDaUmFilme.Twitter": { "target": "project" },
-        "MeDaUmFilme.Language": { "target": "project" }
+{
+  "dependencies": {
+    "Microsoft.NETCore.App": {
+      "version": "1.0.1",
+      "type": "platform"
     },
-    "tools": {
+    "Microsoft.Extensions.DependencyInjection": "1.1.0",
+    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0",
+    "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0",
+    "Microsoft.Extensions.Configuration.Json": "1.0.0",
+    "Microsoft.Extensions.Logging": "1.0.0",
+    "Microsoft.Extensions.Logging.Console": "1.0.0",
+    "Microsoft.Extensions.Logging.Debug": "1.0.0",
+    "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
+    "MeDaUmFilme.Consulta": {
+      "target": "project"
     },
-    "frameworks": {
-        "netcoreapp1.0": {
-            "imports": [
-                "dotnet5.6",
-                "portable-net45+win8"
-            ]
-        }
+    "MeDaUmFilme.Twitter": {
+      "target": "project"
     },
-    "buildOptions": {
-        "emitEntryPoint": true,
-        "preserveCompilationContext": true
-    },
-    "runtimeOptions": {
-        "configProperties": {
-            "System.GC.Server": true
-        }
-    },
-    "publishOptions": {
-        "include": [
-            "appsettings.json"
-        ]
-    },
-    "scripts": {
+    "MeDaUmFilme.Language": {
+      "target": "project"
     }
+  },
+  "tools": {},
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "portable-net45+win8"
+      ]
+    }
+  },
+  "buildOptions": {
+    "emitEntryPoint": true,
+    "preserveCompilationContext": true,
+    "debugType": "portable"
+  },
+  "runtimeOptions": {
+    "configProperties": {
+      "System.GC.Server": true
+    }
+  },
+  "publishOptions": {
+    "include": [
+      "appsettings.json",
+      "docker-compose.yml",
+      "Dockerfile",
+      ".dockerignore"
+    ]
+  },
+  "scripts": {}
 }

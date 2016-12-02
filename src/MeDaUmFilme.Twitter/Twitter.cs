@@ -15,16 +15,28 @@ namespace MeDaUmFilme.Twitter
             Auth.SetUserCredentials(config.ConsumerKey, config.ConsumerSecret, config.AccessToken, config.AccessTokenSecret);
         }
 
-        public Task ListenAsync(string searchTerm, Action<string, ITweet> received)
+        public void ListenAsync(string searchTerm, Action<string, ITweet> received)
         {
             var stream = Stream.CreateFilteredStream();
             stream.AddTrack(searchTerm);
+            stream.DisconnectMessageReceived += (sender, args) => Console.WriteLine("DisconnectMessageReceived");
+            stream.LimitReached += (sender, args) => Console.WriteLine("LimitReached");
+            stream.StreamPaused += (sender, args) => Console.WriteLine("StreamPaused");
+            stream.StreamResumed += (sender, args) => Console.WriteLine("StreamResumed");
+            stream.StreamStarted += (sender, args) => Console.WriteLine("StreamStarted");
+            stream.StreamStopped += (sender, args) =>
+            {
+                Console.WriteLine("StreamStopped\n" + args.DisconnectMessage + "\n" + args.Exception.ToString());
+                //stream.StartStreamMatchingAllConditionsAsync();
+                ListenAsync(searchTerm, received);
+            };
+            stream.UnmanagedEventReceived += (sender, args) => Console.WriteLine("UnmanagedEventReceived");
             stream.MatchingTweetReceived += (sender, args) =>
             {
                 var sanitizedText = SanitizeText(args.Tweet);
                 received(sanitizedText, args.Tweet);
             };
-            return stream.StartStreamMatchingAllConditionsAsync();
+            stream.StartStreamMatchingAllConditionsAsync();
         }
 
         private static string SanitizeText(ITweet tweet)
