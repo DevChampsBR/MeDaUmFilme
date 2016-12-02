@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MeDaUmFilme.Language;
 using Tweetinvi.Models;
+using Tweetinvi.Parameters;
 
 namespace MeDaUmFilme
 {
@@ -46,8 +47,20 @@ namespace MeDaUmFilme
                     Title = intent.Entities["Titulo"]
                 };
                 var movie = await meDaUmFilmeSearch.GetMovie(omdbRequest);
-                Console.WriteLine($"Found: {movie.Title} from {movie.Year}");
+                var replyText = $"Found: {movie.Title} from {movie.Year}";
+                Console.WriteLine(replyText);
+                ReplyToTweet(tweet, replyText);
             }
+        }
+
+        private static void ReplyToTweet(ITweet tweet, string text)
+        {
+            var response = Tweetinvi.Tweet.PublishTweet($"@{tweet.CreatedBy.ScreenName} {text}",
+                new PublishTweetOptionalParameters()
+                {
+                    InReplyToTweet = tweet
+                }
+            );
         }
     }
 }
