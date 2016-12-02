@@ -64,18 +64,42 @@ namespace MeDaUmFilme
             }
         }
 
-        private static async Task ReplyToTweet(ITweet tweet, string text)
+        private static async Task ReplyToTweet(ITweet tweet, string text, string poster)
         {
-            byte[] file1 = DownloadAsync("https://images-na.ssl-images-amazon.com/images/M/MV5BNGExMjIwMzItOTZjOC00ODJjLWE2OGUtMDhhNDc5MWM2NTIyXkEyXkFqcGdeQXVyNjU5Mjg1NzQ@._V1_SX300.jpg");
-            var media = Upload.UploadImage(file1);
+            byte[] file1 = null;
+            IMedia media = null;
+            bool temImagem = false;
 
-            var response = Tweetinvi.Tweet.PublishTweet($"@{tweet.CreatedBy.ScreenName} {text}",
-                new PublishTweetOptionalParameters()
-                {
-                    InReplyToTweet = tweet,
-                    Medias = new List<IMedia> { media }
-                }
-            );
+            try
+            {
+                file1 = DownloadAsync(poster);
+                media = Upload.UploadImage(file1);
+                temImagem = true;
+            }
+            catch
+            {
+                temImagem = false;
+            }
+
+            if(temImagem)
+            {
+                var response = Tweetinvi.Tweet.PublishTweet($"@{tweet.CreatedBy.ScreenName} {text}",
+                    new PublishTweetOptionalParameters()
+                    {
+                        InReplyToTweet = tweet,
+                        Medias = new List<IMedia> { media }
+                    }
+                );
+            }
+            else
+            {
+                var response = Tweetinvi.Tweet.PublishTweet($"@{tweet.CreatedBy.ScreenName} {text}",
+                    new PublishTweetOptionalParameters()
+                    {
+                        InReplyToTweet = tweet
+                    }
+                );
+            }
         }
 
         public static byte[] DownloadAsync(string url)
