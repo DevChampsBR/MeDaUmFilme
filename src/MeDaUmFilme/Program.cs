@@ -5,6 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using MeDaUmFilme.Language;
 using Tweetinvi.Models;
 using Tweetinvi.Parameters;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Tweetinvi;
+using System.Collections.Generic;
 
 namespace MeDaUmFilme
 {
@@ -51,7 +55,7 @@ namespace MeDaUmFilme
                     var movie = await meDaUmFilmeSearch.GetMovie(omdbRequest);
                     var replyText = $"Found: {movie.Title} from {movie.Year}";
                     Console.WriteLine(replyText);
-                    ReplyToTweet(tweet, replyText);
+                    await ReplyToTweet(tweet, replyText, movie.Poster);
                 }
             }
             catch (Exception ex)
@@ -60,14 +64,25 @@ namespace MeDaUmFilme
             }
         }
 
-        private static void ReplyToTweet(ITweet tweet, string text)
+        private static async Task ReplyToTweet(ITweet tweet, string text)
         {
+            byte[] file1 = DownloadAsync("https://images-na.ssl-images-amazon.com/images/M/MV5BNGExMjIwMzItOTZjOC00ODJjLWE2OGUtMDhhNDc5MWM2NTIyXkEyXkFqcGdeQXVyNjU5Mjg1NzQ@._V1_SX300.jpg");
+            var media = Upload.UploadImage(file1);
+
             var response = Tweetinvi.Tweet.PublishTweet($"@{tweet.CreatedBy.ScreenName} {text}",
                 new PublishTweetOptionalParameters()
                 {
-                    InReplyToTweet = tweet
+                    InReplyToTweet = tweet,
+                    Medias = new List<IMedia> { media }
                 }
             );
+        }
+
+        public static byte[] DownloadAsync(string url)
+        {
+            HttpClient http = new HttpClient();
+            Task<byte[]> task = http.GetByteArrayAsync(url);
+            return task.Result;
         }
     }
 }
