@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace MeDaUmFilme.Consulta
+namespace MeDaUmFilme
 {
     public static class MeDaUmFilmeSearch
     {

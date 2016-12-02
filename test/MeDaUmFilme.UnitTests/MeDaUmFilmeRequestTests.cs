@@ -16,7 +16,7 @@ namespace MeDaUmFilme.UnitTests
 
             var result = await MeDaUmFilmeSearch.GetMovie(emptyRequest);
 
-            Assert.True(result.Contains("Batman"));
+            Assert.True(result.Contains("Title"));
         }
     }
 }
