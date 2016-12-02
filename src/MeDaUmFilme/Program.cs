@@ -68,16 +68,7 @@ namespace MeDaUmFilme
                     case "BuscaQualquer":
                         {
                             var replyText = "Não entendi.";
-                            if (!intent.Entities.ContainsKey("Titulo"))
-                            {
-                                Console.WriteLine(replyText);
-                                twitter.ReplyToTweet(tweet, replyText);
-                                break;
-                            }
-                            var omdbRequest = new OmbdRequest()
-                            {
-                                Title = intent.Entities["Titulo"]
-                            };
+                            var omdbRequest = new OmbdRequest();
                             var movie = await meDaUmFilmeSearch.GetMovie(omdbRequest);
                             replyText = $"Found: {movie.Title} from {movie.Year}";
                             Console.WriteLine(replyText);
