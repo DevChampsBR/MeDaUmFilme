@@ -1,22 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-
-namespace MeDaUmFilme {
-
-    public static class Ramdons
-    {
-        public static IEnumerable<string> Get()
-        {
-            return new List<string>()
-            {
-                "Batman",
-                "Frozen",
-            };
-        }
-    }
+namespace MeDaUmFilme
+{
 
     public class MeDaUmFilmeRequest
     {
@@ -29,10 +12,12 @@ namespace MeDaUmFilme {
         {
             get 
             {
+                var random = new MeDaUmFilmeRandom();
+
                 var uri = $"{REQUEST_API}s={Title}";
 
                 if (string.IsNullOrWhiteSpace(Title))
-                    uri = $"{REQUEST_API}s={Ramdons.Get().FirstOrDefault()}";
+                    uri = $"{REQUEST_API}s={random.GetRandomTitle}";
 
                 if (!string.IsNullOrWhiteSpace(Year))
                     uri = $"{uri}&y={Year}";
@@ -40,24 +25,5 @@ namespace MeDaUmFilme {
                 return uri;
             }
         }
-    }
-
-    public static class MeDaUmFilmeSearch
-    {
-        public static async Task<string> GetMovie(MeDaUmFilmeRequest request)
-        {
-            string json = null;
-
-            using (var client = new HttpClient())
-            {
-                var response = await client.GetAsync(request.SearchUri);
-
-                if (response.IsSuccessStatusCode)
-                    json = await response.Content.ReadAsStringAsync();
-                
-                return json;
-            }
-            
-        }   
     }
 }
