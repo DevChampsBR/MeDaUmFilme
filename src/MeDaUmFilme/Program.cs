@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MeDaUmFilme.Language;
 
-namespace MeDaUmFilme.Api
+namespace MeDaUmFilme
 {
     public class Program
     {
@@ -32,7 +29,9 @@ namespace MeDaUmFilme.Api
             languageAnalyzer = services.GetService<IAnalyzer>();
             meDaUmFilmeSearch = services.GetService<IMeDaUmFilmeSearch>();
             var twitter = services.GetService<Twitter.Twitter>();
-            twitter.ListenAsync("@medaumfilme", Listen).Wait();
+            twitter.ListenAsync("@medaumfilme", Listen);
+            Console.WriteLine("Waiting...");
+            Console.ReadLine();
         }
 
         private async static void Listen(string tweet)

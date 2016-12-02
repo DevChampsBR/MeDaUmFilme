@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MeDaUmFilme.Api
+namespace MeDaUmFilme
 {
     public static class TwitterMvcExtensions
     {
