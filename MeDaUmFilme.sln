@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{3432027E-5
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MeDaUmFilme.UnitTests", "test\MeDaUmFilme.UnitTests\MeDaUmFilme.UnitTests.xproj", "{F575DC83-A987-4708-B602-F979E08363E6}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MeDaUmFilme.Language", "src\MeDaUmFilme.Language\MeDaUmFilme.Language.xproj", "{079779C6-A689-4B73-A48C-30D522670F1F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{F575DC83-A987-4708-B602-F979E08363E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F575DC83-A987-4708-B602-F979E08363E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F575DC83-A987-4708-B602-F979E08363E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{079779C6-A689-4B73-A48C-30D522670F1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{079779C6-A689-4B73-A48C-30D522670F1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{079779C6-A689-4B73-A48C-30D522670F1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{079779C6-A689-4B73-A48C-30D522670F1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,5 +53,6 @@ Global
 		{A0055591-8A4A-4BFA-B6D2-99F1AF4747A2} = {9C189FAB-56FB-48A5-B8AA-DDD5FD00F10B}
 		{0C0269F6-FB8B-42DD-955A-46C46F1BEF90} = {9C189FAB-56FB-48A5-B8AA-DDD5FD00F10B}
 		{F575DC83-A987-4708-B602-F979E08363E6} = {3432027E-5CE3-473E-9A23-3CBFAA8BBBCA}
+		{079779C6-A689-4B73-A48C-30D522670F1F} = {9C189FAB-56FB-48A5-B8AA-DDD5FD00F10B}
 	EndGlobalSection
 EndGlobal
