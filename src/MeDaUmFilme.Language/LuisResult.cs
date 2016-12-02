@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MeDaUmFilme.Language
 {
-    public partial class LuisResult
+    internal partial class LuisResult
     {
         public LuisResult() { }
 

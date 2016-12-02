@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MeDaUmFilme.Language
 {
-    public partial class IntentRecommendation
+    internal partial class IntentRecommendation
     {
         public IntentRecommendation() { }
 
