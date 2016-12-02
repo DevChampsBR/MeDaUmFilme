@@ -14,11 +14,8 @@ namespace MeDaUmFilme {
             {
                 "Batman",
                 "Frozen",
-
-
             };
         }
-
     }
 
     public class MeDaUmFilmeRequest
@@ -43,16 +40,11 @@ namespace MeDaUmFilme {
                 return uri;
             }
         }
-
-
-
-
     }
 
-    public class MeDaUmFilmeSearch
+    public static class MeDaUmFilmeSearch
     {
-        
-        public async Task<string> GetMovie(MeDaUmFilmeRequest request)
+        public static async Task<string> GetMovie(MeDaUmFilmeRequest request)
         {
             string json = null;
 
